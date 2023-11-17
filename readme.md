@@ -23,3 +23,6 @@
     }
 
 -   You can add more fields if you want to.
+
+## Final Result
+![todo-app](https://github.com/Code-with-Henil/week-4-usereducer-qbixmex/assets/70177108/0663ab58-7d00-46fd-ada8-d403a733b722)
