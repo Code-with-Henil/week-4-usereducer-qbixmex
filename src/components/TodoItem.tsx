@@ -22,6 +22,13 @@ const TodoItem: FC<Props> = ({ todo }) => {
     });
   };
 
+  const handleEdit = () => {
+    dispatch({
+      type: 'EDIT',
+      payload: { todo: todo },
+    });
+  };
+
   const handleDelete = () => {
     dispatch({
       type: 'DELETE',
@@ -34,6 +41,8 @@ const TodoItem: FC<Props> = ({ todo }) => {
       <ListItemText sx={{
         textDecoration: todo.isComplete ? 'line-through' : 'none'
       }}>{ todo.task }</ListItemText>
+
+      {/* TOGGLE COMPLETE */}
       <IconButton onClick={handleComplete}>
       {
         todo.isComplete
@@ -41,9 +50,13 @@ const TodoItem: FC<Props> = ({ todo }) => {
           : <UncheckedBoxIcon color="info" />
       }
       </IconButton>
-      <IconButton>
+
+      {/* EDIT TODO */}
+      <IconButton onClick={handleEdit}>
         <EditIcon color="warning" fontSize="medium" />
       </IconButton>
+
+      {/* DELETE TODO */}
       <IconButton onClick={handleDelete}>
         <DeleteIcon color="error" fontSize="medium" />
       </IconButton>

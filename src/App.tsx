@@ -2,7 +2,7 @@ import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import { useContext } from 'react';
 import { ThemeContext } from './contexts/theme.provider';
 import { lightTheme, darkTheme } from './themes';
-import { AddTodo, Heading, Todos } from './components';
+import { TodoForm, Heading, Todos } from './components';
 import { TodosProvider } from './contexts/todos.provider';
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
       <Container maxWidth="sm">
         <Heading color="blue" component="h1" fontSize={4}>Todo App</Heading>
         <TodosProvider>
-          <AddTodo />
+          <TodoForm />
           <Todos />
         </TodosProvider>
       </Container>

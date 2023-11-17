@@ -9,7 +9,7 @@ type Props = {
 
 const Todos: FC<Props> = () => {
 
-  const { todos } = useContext(TodosContext);
+  const { state: { todos } } = useContext(TodosContext);
 
   return (
     <Paper>

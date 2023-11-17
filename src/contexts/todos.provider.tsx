@@ -1,26 +1,24 @@
-import React, { Dispatch, FC, ReactNode, createContext } from 'react';
-import { Todo } from '../interfaces';
-import todosReducer, { TodosAction } from './todos.reducer';
+import { Dispatch, FC, ReactNode, createContext, useReducer } from 'react';
+import todosReducer, { TodosAction, TodosState } from './todos.reducer';
 
 type TodosContextType = {
-  todos: Todo[];
+  state: TodosState;
   dispatch: Dispatch<TodosAction>;
 };
 
 const TodosContext = createContext<TodosContextType>({} as TodosContextType);
 
-const INITIAL_TODOS: Todo[] = [
-  { id: crypto.randomUUID(), task: 'Go to the Shopping Mall', isComplete: true },
-  { id: crypto.randomUUID(), task: 'Go to the Gym', isComplete: true },
-  { id: crypto.randomUUID(), task: 'Go to the School', isComplete: false },
-];
+const INITIAL_STATE: TodosState = {
+  todos: [],
+  todo: null,
+};
 
 const TodosProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
-  const [ todos, dispatch ] = React.useReducer(todosReducer, INITIAL_TODOS);
+  const [ state, dispatch ] = useReducer(todosReducer, INITIAL_STATE);
 
   return (
-    <TodosContext.Provider value={{ todos, dispatch }}>
+    <TodosContext.Provider value={{ state, dispatch }}>
       {children}
     </TodosContext.Provider>
   );
