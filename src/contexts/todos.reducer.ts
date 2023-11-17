@@ -5,12 +5,20 @@ type CreateAction = {
   payload: { task: string };
 };
 
+type ToggleCompleteAction = {
+  type: 'TOGGLE-COMPLETE';
+  payload: { id: string };
+};
+
 type DeleteAction = {
   type: 'DELETE';
   payload: { id: string };
 };
 
-export type TodosAction = CreateAction | DeleteAction;
+export type TodosAction =
+  CreateAction
+  | ToggleCompleteAction
+  | DeleteAction;
 
 const todosReducer = (state: Todo[], action: TodosAction) => {
   switch (action.type) {
@@ -23,6 +31,17 @@ const todosReducer = (state: Todo[], action: TodosAction) => {
         },
         ...state,
       ];
+
+    case 'TOGGLE-COMPLETE':
+      return state.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return {
+            ...todo,
+            isComplete: !todo.isComplete
+          };
+        }
+        return todo;
+      });
 
     case 'DELETE':
       return state.filter((todo) => todo.id !== action.payload.id);

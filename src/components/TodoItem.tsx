@@ -15,6 +15,13 @@ const TodoItem: FC<Props> = ({ todo }) => {
 
   const { dispatch } = useContext(TodosContext);
 
+  const handleComplete = () => {
+    dispatch({
+      type: 'TOGGLE-COMPLETE',
+      payload: { id: todo.id }
+    });
+  };
+
   const handleDelete = () => {
     dispatch({
       type: 'DELETE',
@@ -27,7 +34,7 @@ const TodoItem: FC<Props> = ({ todo }) => {
       <ListItemText sx={{
         textDecoration: todo.isComplete ? 'line-through' : 'none'
       }}>{ todo.task }</ListItemText>
-      <IconButton>
+      <IconButton onClick={handleComplete}>
       {
         todo.isComplete
           ? <CheckBoxIcon color="success" />
