@@ -1,18 +1,23 @@
 import { Todo } from "../interfaces";
 
-type Action = {
+export type TodosAction = {
   type: 'create' | 'edit' | 'delete';
-  action: {
-    payload: {
-      task: boolean;
-    }
-  }
+  payload: {
+    task: string;
+  };
 };
 
-const todosReducer = (state: Todo[], action: Action) => {
+const todosReducer = (state: Todo[], action: TodosAction) => {
   switch (action.type) {
     case 'create':
-      return state;
+    return [
+      {
+        id: crypto.randomUUID(),
+        task: action.payload.task,
+        isComplete: false,
+      },
+      ...state,
+    ]
     case 'edit':
       return state;
     case 'delete':

@@ -1,9 +1,10 @@
 import React, { Dispatch, FC, ReactNode, createContext } from 'react';
 import { Todo } from '../interfaces';
+import todosReducer, { TodosAction } from './todos.reducer';
 
 type TodosContextType = {
   todos: Todo[];
-  setTodos: Dispatch<Todo[]>;
+  dispatch: Dispatch<TodosAction>;
 };
 
 const TodosContext = createContext<TodosContextType>({} as TodosContextType);
@@ -16,10 +17,10 @@ const INITIAL_TODOS: Todo[] = [
 
 const TodosProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
-  const [ todos, setTodos ] = React.useState<Todo[]>(INITIAL_TODOS);
+  const [ todos, dispatch ] = React.useReducer(todosReducer, INITIAL_TODOS);
 
   return (
-    <TodosContext.Provider value={{ todos, setTodos }}>
+    <TodosContext.Provider value={{ todos, dispatch }}>
       {children}
     </TodosContext.Provider>
   );

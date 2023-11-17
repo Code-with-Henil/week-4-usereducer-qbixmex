@@ -1,15 +1,22 @@
 import { Button, Paper, Stack, TextField } from "@mui/material";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useContext, useRef } from "react";
+import { TodosContext } from "../contexts/todos.provider";
 
 const AddTodo = () => {
+
+  const { dispatch } = useContext(TodosContext);
 
   const inputRef = useRef<HTMLInputElement|null>(null);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    //* Should dispatch({ type: 'add' });
-    console.log("TODO:", inputRef.current?.value);
+    dispatch({
+      type: 'create',
+      payload: {
+        task: inputRef.current?.value as string,
+      },
+    });
 
     //* Clear Input
     inputRef.current!.value = '';
@@ -25,6 +32,7 @@ const AddTodo = () => {
             fullWidth
             inputRef={inputRef}
             autoComplete="off"
+            defaultValue="Go to the store"
           />
           <Button type="submit" variant="outlined">Create</Button>
         </Stack>
