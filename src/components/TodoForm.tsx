@@ -21,6 +21,10 @@ const TodoForm = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
+    //? Validation
+    if (task === '') return;
+
+    //? NEW TODO
     if (todo === null) {
       dispatch({
         type: 'CREATE',
@@ -30,6 +34,7 @@ const TodoForm = () => {
       });
     }
 
+    //? UPDATE TODO
     if (todo !== null) {
       dispatch({
         type: 'UPDATE',
@@ -39,7 +44,7 @@ const TodoForm = () => {
       });
     }
 
-    //* Clear Input
+    //? Clear Input
     setTask('');
   };
 

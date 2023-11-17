@@ -11,11 +11,13 @@ const Todos: FC<Props> = () => {
 
   const { state: { todos } } = useContext(TodosContext);
 
+  if (todos.length === 0) return;
+
   return (
     <Paper>
       <List>
 
-        { todos.map((todo, index) => {
+        { todos.length > 0 && todos.map((todo, index) => {
           return (
             <Fragment key={todo.id}>
               <TodoItem todo={todo} />
