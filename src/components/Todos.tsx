@@ -1,9 +1,7 @@
-import { FC } from 'react';
-import { List, ListItem, IconButton, ListItemText, Paper } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import UncheckedBoxIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import { FC, Fragment, useContext } from 'react';
+import { List, Paper, Divider } from '@mui/material';
+import { TodosContext } from '../contexts/todos.provider';
+import { TodoItem } from '.';
 
 type Props = {
   name?: string;
@@ -11,45 +9,23 @@ type Props = {
 
 const Todos: FC<Props> = () => {
 
+  const { state: { todos } } = useContext(TodosContext);
+
+  if (todos.length === 0) return;
+
   return (
     <Paper>
       <List>
-        <ListItem>
-          <ListItemText sx={{ textDecoration: 'line-through' }}>Go to the Shopping Mall</ListItemText>
-          <IconButton>
-            <CheckBoxIcon color="success" />
-          </IconButton>
-          <IconButton>
-            <EditIcon color="warning" fontSize="medium" />
-          </IconButton>
-          <IconButton>
-            <DeleteIcon color="error" fontSize="medium" />
-          </IconButton>
-        </ListItem>
-        <ListItem>
-          <ListItemText sx={{ textDecoration: 'line-through' }}>Go to the Gym</ListItemText>
-          <IconButton>
-            <CheckBoxIcon color="success" />
-          </IconButton>
-          <IconButton>
-            <EditIcon color="warning" fontSize="medium" />
-          </IconButton>
-          <IconButton>
-            <DeleteIcon color="error" fontSize="medium" />
-          </IconButton>
-        </ListItem>
-        <ListItem>
-          <ListItemText>Go to the School</ListItemText>
-          <IconButton>
-            <UncheckedBoxIcon color="info" />
-          </IconButton>
-          <IconButton>
-            <EditIcon color="warning" fontSize="medium" />
-          </IconButton>
-          <IconButton>
-            <DeleteIcon color="error" fontSize="medium" />
-          </IconButton>
-        </ListItem>
+
+        { todos.length > 0 && todos.map((todo, index) => {
+          return (
+            <Fragment key={todo.id}>
+              <TodoItem todo={todo} />
+              { index !== (todos.length - 1) && <Divider  /> }
+            </Fragment>
+          );
+        })}
+
       </List>
     </Paper>
   );
