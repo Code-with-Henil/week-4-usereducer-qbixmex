@@ -12,7 +12,7 @@ const AddTodo = () => {
     event.preventDefault();
 
     dispatch({
-      type: 'create',
+      type: 'CREATE',
       payload: {
         task: inputRef.current?.value as string,
       },
